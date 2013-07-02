@@ -1,0 +1,10 @@
+/desktop/gnome/background/picture_options	centered
+/desktop/gnome/background/picture_filename	/usr/share/backgrounds/h.png
+/desktop/gnome/applications/browser/exec	firefox
+/desktop/gnome/applications/media/exec		rhythmbox
+/desktop/gnome/peripherals/keyboard/bell_mode	off
+/desktop/gnome/sound/enable_esd		true
+/desktop/gnome/sound/event_sounds	true
+/desktop/gnome/background/primary_color		#000000
+/desktop/gnome/background/secondary_color       #000000
+/desktop/gnome/font_rendering/dpi	96.0

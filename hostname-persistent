@@ -1,0 +1,62 @@
+#!/bin/bash -e
+
+usage()
+{
+	echo -e Usage:
+	echo -e \\t"$0" [-f\|--force] \<hostname\>
+}
+
+trap "echo Premature exit." ERR
+
+OPT_FORCE=
+
+while [ -n "$1" ]; do
+	case $1 in
+		(-f|--force)
+			OPT_FORCE=1
+			shift
+			;;
+		(-*)
+			echo ERROR: invalid option -- $1
+			exit 1
+			;;
+		(*)
+			break
+			;;
+	esac
+done
+
+if [ -n "$2" ]; then
+	echo ERROR: excess argument -- $2
+	exit 1
+fi
+
+if [ -z "$1" ]; then
+	usage
+	exit 1
+fi
+
+if [ -f /etc/hostname ] && grep "127\.0\.1\.1" /etc/hosts > /dev/null ; then
+	true
+else
+	echo "$0" -- unknown hostname configuration
+	exit 1
+fi
+echo Current hostname: "$(cat /etc/hostname)"
+echo New hostname: "$1"
+if [ -t 0 -a -z "$OPT_FORCE" ]; then
+	echo
+	echo Press Enter to proceed or Ctrl+C to exit.
+	if ! read I ; then
+		exit 1
+	fi
+fi
+cp /etc/hostname /etc/hostname.$$
+cp /etc/hosts /etc/hosts.$$
+sync
+trap "mv /etc/hostname.$$ /etc/hostname ; mv /etc/hosts.$$ /etc/hosts ; echo Premature exit." ERR
+sed -i "s/.*/$1/" /etc/hostname
+sed -ri "s/^(127\.0\.1\.1.).*/\1$1/" /etc/hosts
+rm /etc/hostname.$$ || true
+rm /etc/hosts.$$ || true
+echo Hostname changed. Reboot your system for the change to take effect.

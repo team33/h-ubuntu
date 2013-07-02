@@ -1,0 +1,67 @@
+diff -ru /etc/init.orig/avahi-daemon.conf /etc/init/avahi-daemon.conf
+--- /etc/init.orig/avahi-daemon.conf	2013-06-28 09:10:09.000000000 -0600
++++ /etc/init/avahi-daemon.conf	2013-06-28 15:41:28.760228041 -0600
+@@ -6,7 +6,8 @@
+ description	"mDNS/DNS-SD daemon"
+ 
+ start on (filesystem
+-	  and started dbus)
++	  and started dbus
++	  and runlevel [245])
+ stop on stopping dbus
+ 
+ expect daemon
+diff -ru /etc/init.orig/bluetooth.conf /etc/init/bluetooth.conf
+--- /etc/init.orig/bluetooth.conf	2013-06-28 09:10:10.000000000 -0600
++++ /etc/init/bluetooth.conf	2013-06-28 15:32:39.790223878 -0600
+@@ -2,7 +2,8 @@
+ 
+ description     "bluetooth daemon"
+ 
+-start on started dbus
++start on (started dbus
++	  and runlevel [245])
+ stop on stopping dbus
+ 
+ env UART_CONF=/etc/bluetooth/uart
+diff -ru /etc/init.orig/cups.conf /etc/init/cups.conf
+--- /etc/init.orig/cups.conf	2013-06-28 09:10:10.000000000 -0600
++++ /etc/init/cups.conf	2013-06-28 16:10:04.260241544 -0600
+@@ -4,8 +4,9 @@
+ author          "Michael Sweet <msweet@apple.com>"
+ 
+ start on (filesystem
+-          and (started dbus or runlevel [2345]))
+-stop on runlevel [016]
++          and started dbus
++          and runlevel [245])
++stop on stopping dbus
+ 
+ respawn
+ respawn limit 3 12
+diff -ru /etc/init.orig/lightdm.conf /etc/init/lightdm.conf
+--- /etc/init.orig/lightdm.conf	2013-06-28 09:10:10.000000000 -0600
++++ /etc/init/lightdm.conf	2013-06-28 16:08:39.840240880 -0600
+@@ -9,7 +9,7 @@
+ author		"Robert Ancell <robert.ancell@canonical.com>"
+ 
+ start on ((filesystem
+-           and runlevel [!06]
++           and runlevel [!036]
+            and started dbus
+            and (drm-device-added card0 PRIMARY_DEVICE_FOR_DISPLAY=1
+                 or stopped udev-fallback-graphics))
+diff -ru /etc/init.orig/whoopsie.conf /etc/init/whoopsie.conf
+--- /etc/init.orig/whoopsie.conf	2013-06-28 09:10:10.000000000 -0600
++++ /etc/init/whoopsie.conf	2013-06-28 15:27:02.450221222 -0600
+@@ -2,8 +2,8 @@
+ 
+ description	"crash report submission daemon"
+ 
+-start on runlevel [2345]
+-stop on runlevel [!2345]
++start on runlevel [245]
++stop on runlevel [!245]
+ 
+ env CRASH_DB_URL=https://daisy.ubuntu.com
+ expect fork

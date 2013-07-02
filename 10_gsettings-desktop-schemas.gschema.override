@@ -1,0 +1,21 @@
+[org.gnome.desktop.background]
+show-desktop-icons=true
+picture-uri='file:///usr/share/backgrounds/h.png'
+picture-options='centered'
+primary-color='#000000'
+secondary-color='#000000'
+
+[org.gnome.desktop.wm.keybindings]
+minimize = ['<Primary><Alt>KP_0']
+move-to-corner-ne = ['<Primary><Alt>KP_Prior']
+move-to-corner-nw = ['<Primary><Alt>KP_Home']
+move-to-corner-se = ['<Primary><Alt>KP_Next']
+move-to-corner-sw = ['<Primary><Alt>KP_End']
+move-to-side-e = ['<Primary><Alt>KP_Right']
+move-to-side-n = ['<Primary><Alt>KP_Up']
+move-to-side-s = ['<Primary><Alt>KP_Down']
+move-to-side-w = ['<Primary><Alt>KP_Left']
+toggle-maximized = ['<Super>Up','<Primary><Super>Up','<Primary><Alt>KP_5']
+toggle-shaded = ['<Primary><Alt>s']
+unmaximize = ['<Super>Down','<Alt>F5','<Primary><Super>Down']
+show-desktop = ['<Primary><Alt>d','<Primary><Super>d','<Super>d']

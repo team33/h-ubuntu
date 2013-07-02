@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfClientSettings xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/HFM.Core.DataTypes">
+  <ClientSettings>
+    <ClientType xmlns:d3p1="http://schemas.datacontract.org/2004/07/HFM.Core">Legacy</ClientType>
+    <LegacyClientSubType xmlns:d3p1="http://schemas.datacontract.org/2004/07/HFM.Core">Path</LegacyClientSubType>
+    <Name>Local V6 client</Name>
+    <Server></Server>
+    <Port>21</Port>
+    <Username></Username>
+    <Password></Password>
+    <FahLogFileName>FAHlog.txt</FahLogFileName>
+    <UnitInfoFileName>unitinfo.txt</UnitInfoFileName>
+    <QueueFileName>queue.dat</QueueFileName>
+    <Path>/home/horde/fah/</Path>
+    <FtpMode xmlns:d3p1="http://schemas.datacontract.org/2004/07/HFM.Core">Passive</FtpMode>
+    <UtcOffsetIsZero>false</UtcOffsetIsZero>
+    <ClientTimeOffset>0</ClientTimeOffset>
+  </ClientSettings>
+</ArrayOfClientSettings>

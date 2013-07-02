@@ -1,0 +1,64 @@
+
+
+Welcome to [H] Ubuntu Folding Appliance [version 8] !
+
+
+To complete installation:
+
+1. Open a terminal:
+   (a) click on the Dash Icon (top-left), then
+   (b) type: 'terminal' and press Enter
+
+2. In the terminal window, type: 'sudo fahinstall' (remove quotes)
+   and press Enter.
+
+3. After few moments, fahinstall will ask if you accept Folding@Home
+   EULA. If you accept the EULA, press Enter.
+
+4. Fahinstall will then download and run the client in -configonly mode
+   which will ask you for your donor name, team number and passkey.
+   Enter the values as requested.
+
+   If you don't have a passkey, request one at:
+   http://fah-web.stanford.edu/cgi-bin/getpasskey.py
+
+   Add'l passkey info is available at:
+   http://folding.stanford.edu/English/FAQ-passkey
+
+5. You may leave remaining items at their defaults (Press Enter to
+   accept each value). If you wish to use Langouste answer 'yes'
+   to 'Use proxy' question.
+
+   NOTE: client is preconfigured for your hardware configuration;
+         however, if you have a 24-thread machine that won't meet
+         bigadv deadlines (ask us, if you're not sure), you will
+         have to answer 'yes' to 'Change advanced options' question
+         and remove '-bigadv' parameter from 'Additional client
+         parameters' list.
+
+6. Upon completing the installation, fahinstall will print your host
+   name and IP address and will ask you to reboot the machine.
+
+7. Optionally, you may now change host name to your liking. To do so,
+   type:
+
+       sudo hostname-persistent <hostname>
+
+   Replace <hostname> with desired name and press Enter.
+
+   For instance, to set your hostname to 'neptune' type:
+
+       sudo hostname-persistent neptune
+
+   and press Enter.
+
+8. Reboot the machine: type 'sudo reboot' (remove quotes) and press
+   Enter
+
+9. Once the machine reboots, log back in.
+
+10. To start folding, open a terminal and type (press Enter after each
+    line):
+
+       cd ~/fah/
+       ./fah6
