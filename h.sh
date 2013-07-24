@@ -32,8 +32,10 @@ rm linux-*.deb
 
 sudo apt-get -y install dconf-tools ncurses-dev g++
 sudo apt-get clean
-sudo cp h.png /usr/share/backgrounds/
-sudo touch -d '2013-06-03 06:05' /usr/share/backgrounds/h.png
+if [ -d /usr/share/backgrounds ]; then
+  sudo cp h.png /usr/share/backgrounds/
+  sudo touch -d '2013-06-03 06:05' /usr/share/backgrounds/h.png
+fi
 sudo cp 10_gsettings-desktop-schemas.gschema.override /usr/share/glib-2.0/schemas/10_gsettings-desktop-schemas.gschema.override
 sudo cp 10_libgnome2-common /usr/share/gconf/defaults/10_libgnome2-common
 sudo cp com.canonical.unity-greeter.gschema.xml /usr/share/glib-2.0/schemas/com.canonical.unity-greeter.gschema.xml
