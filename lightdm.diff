@@ -1,0 +1,12 @@
+diff -ru /etc/init.orig/lightdm.conf /etc/init/lightdm.conf
+--- /etc/init.orig/lightdm.conf	2013-06-28 09:10:10.000000000 -0600
++++ /etc/init/lightdm.conf	2013-06-28 16:08:39.840240880 -0600
+@@ -9,7 +9,7 @@
+ author		"Robert Ancell <robert.ancell@canonical.com>"
+ 
+ start on ((filesystem
+-           and runlevel [!06]
++           and runlevel [!036]
+            and started dbus
+            and (drm-device-added card0 PRIMARY_DEVICE_FOR_DISPLAY=1
+                 or stopped udev-fallback-graphics))

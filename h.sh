@@ -18,7 +18,11 @@ sudo touch /var/cache/apt/archives/lock
 
 sudo dpkg -P fonts-opensymbol gir1.2-gst-plugins-base-0.10 gir1.2-gstreamer-0.10 gir1.2-rb-3.0 gir1.2-totem-1.0 gir1.2-totem-plparser-1.0 gir1.2-ubuntuoneui-3.0 hyphen-en-us libexttextcat-data libgpod-common libmtp-common libmtp-runtime libreoffice-base-core libreoffice-calc libreoffice-common libreoffice-core libreoffice-draw libreoffice-emailmerge libreoffice-gnome libreoffice-gtk libreoffice-help-en-us libreoffice-impress libreoffice-math libreoffice-style-human libreoffice-style-tango libreoffice-writer librhythmbox-core5 libsyncdaemon-1.0-1 libtotem0 libubuntuoneui-3.0-1 media-player-info mythes-en-us openoffice.org-hyphenation protobuf-compiler python-configglue python-dirspec python-mako python-markupsafe python-protobuf python-pyinotify python-twisted-names python-ubuntuone-client python-ubuntuone-control-panel python-ubuntuone-storageprotocol python-uno rhythmbox rhythmbox-data rhythmbox-mozilla rhythmbox-plugin-cdrecorder rhythmbox-plugin-magnatune rhythmbox-plugin-zeitgeist rhythmbox-plugins rhythmbox-ubuntuone shotwell thunderbird thunderbird-globalmenu thunderbird-gnome-support thunderbird-locale-en thunderbird-locale-en-us totem totem-common totem-mozilla totem-plugins transmission-common transmission-gtk ubuntuone-client ubuntuone-client-gnome ubuntuone-control-panel ubuntuone-couch ubuntuone-installer unity-scope-musicstores uno-libs3 ure libexttextcat0 libmtp9 libcmis-0.2-0 libdiscid0 libdmapsharing-3.0-2 libevent-2.0-5 libexiv2-11 libgexiv2-1 libgpod4 libhyphen0 liblircclient0 libmhash2 libmusicbrainz3-6 libmythes-1.2-0 libneon27-gnutls libprotoc7 libraptor2-0 librasqal3 libraw5 librdf0 libwpd-0.9-9 libwpg-0.2-2 libwps-0.2-2 libyajl1 xfonts-mathml
 
-sudo patch -p0 < brilong-2.diff
+[ -f /etc/init/avahi-daemon.conf ] && sudo patch -p0 < avahi-daemon.diff
+[ -f /etc/init/bluetooth.conf ] && sudo patch -p0 < bluetooth.diff
+[ -f /etc/init/cups.conf ] && sudo patch -p0 < cups.diff
+[ -f /etc/init/lightdm.conf ] && sudo patch -p0 < lightdm.diff
+[ -f /etc/init/whoopsie.conf ] && sudo patch -p0 < whoopsie.diff
 
 # install [H] kernel
 sudo dpkg -P linux-image-generic-lts-quantal  linux-generic-lts-quantal 'linux-image-3.[56789].*' 'linux-image-extra-3.[56789].*'

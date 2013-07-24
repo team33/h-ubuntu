@@ -1,0 +1,15 @@
+diff -ru /etc/init.orig/cups.conf /etc/init/cups.conf
+--- /etc/init.orig/cups.conf	2013-06-28 09:10:10.000000000 -0600
++++ /etc/init/cups.conf	2013-06-28 16:10:04.260241544 -0600
+@@ -4,8 +4,9 @@
+ author          "Michael Sweet <msweet@apple.com>"
+ 
+ start on (filesystem
+-          and (started dbus or runlevel [2345]))
+-stop on runlevel [016]
++          and started dbus
++          and runlevel [245])
++stop on stopping dbus
+ 
+ respawn
+ respawn limit 3 12

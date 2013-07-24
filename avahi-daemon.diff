@@ -1,0 +1,13 @@
+diff -ru /etc/init.orig/avahi-daemon.conf /etc/init/avahi-daemon.conf
+--- /etc/init.orig/avahi-daemon.conf	2013-06-28 09:10:09.000000000 -0600
++++ /etc/init/avahi-daemon.conf	2013-06-28 15:41:28.760228041 -0600
+@@ -6,7 +6,8 @@
+ description	"mDNS/DNS-SD daemon"
+ 
+ start on (filesystem
+-	  and started dbus)
++	  and started dbus
++	  and runlevel [245])
+ stop on stopping dbus
+ 
+ expect daemon

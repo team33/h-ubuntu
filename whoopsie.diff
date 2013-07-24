@@ -1,0 +1,14 @@
+diff -ru /etc/init.orig/whoopsie.conf /etc/init/whoopsie.conf
+--- /etc/init.orig/whoopsie.conf	2013-06-28 09:10:10.000000000 -0600
++++ /etc/init/whoopsie.conf	2013-06-28 15:27:02.450221222 -0600
+@@ -2,8 +2,8 @@
+ 
+ description	"crash report submission daemon"
+ 
+-start on runlevel [2345]
+-stop on runlevel [!2345]
++start on runlevel [245]
++stop on runlevel [!245]
+ 
+ env CRASH_DB_URL=https://daisy.ubuntu.com
+ expect fork

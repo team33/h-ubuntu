@@ -1,0 +1,13 @@
+diff -ru /etc/init.orig/bluetooth.conf /etc/init/bluetooth.conf
+--- /etc/init.orig/bluetooth.conf	2013-06-28 09:10:10.000000000 -0600
++++ /etc/init/bluetooth.conf	2013-06-28 15:32:39.790223878 -0600
+@@ -2,7 +2,8 @@
+ 
+ description     "bluetooth daemon"
+ 
+-start on started dbus
++start on (started dbus
++	  and runlevel [245])
+ stop on stopping dbus
+ 
+ env UART_CONF=/etc/bluetooth/uart
