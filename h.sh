@@ -37,10 +37,10 @@ if [ -d /usr/share/backgrounds ]; then
   sudo touch -d '2013-06-03 06:05' /usr/share/backgrounds/h.png
 fi
 sudo cp 10_gsettings-desktop-schemas.gschema.override /usr/share/glib-2.0/schemas/10_gsettings-desktop-schemas.gschema.override
-sudo cp 10_libgnome2-common /usr/share/gconf/defaults/10_libgnome2-common
 sudo cp com.canonical.unity-greeter.gschema.xml /usr/share/glib-2.0/schemas/com.canonical.unity-greeter.gschema.xml
-sudo cp ubuntu-wallpapers.xml /usr/share/gnome-background-properties/ubuntu-wallpapers.xml
 sudo cp org.gnome.desktop.screensaver.gschema.xml /usr/share/glib-2.0/schemas/org.gnome.desktop.screensaver.gschema.xml
+sudo cp 10_libgnome2-common /usr/share/gconf/defaults/10_libgnome2-common
+sudo cp ubuntu-wallpapers.xml /usr/share/gnome-background-properties/ubuntu-wallpapers.xml
 cp /var/lib/gconf/debian.defaults/%gconf-tree.xml /dev/shm/%gconf-tree.xml-backup
 cat /var/lib/gconf/debian.defaults/%gconf-tree.xml  | awk '/entry name/ { W=$2 ; T=$3 ; print ; next } ; { if (W == "name=\"primary_color\"") { print "\t\t\t\t\t<stringvalue>#000000</stringvalue>" ; print "\t\t\t\t</entry>" ; print "\t\t\t\t<entry name=\"secondary_color\" " T " type=\"string\">" ; print "\t\t\t\t\t<stringvalue>#000000</stringvalue>" ; W="" ; next } ; if (W == "name=\"picture_options\"") { print "\t\t\t\t\t<stringvalue>centered</stringvalue>" ; W="" ; next } ; if (W == "name=\"picture_filename\"") { print "\t\t\t\t\t<stringvalue>/usr/share/backgrounds/h.png</stringvalue>" ; W="" ; next } ; print }' > /dev/shm/%gconf-tree.xml
 sudo dd bs=4k if=/dev/shm/%gconf-tree.xml of=/var/lib/gconf/debian.defaults/%gconf-tree.xml
