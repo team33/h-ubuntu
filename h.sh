@@ -74,10 +74,19 @@ make
 sudo make install
 cd -
 
-wget https://raw.github.com/team33/hfminstall/master/hfminstall
-chmod +x hfminstall
-sudo ./hfminstall
-sudo apt-get clean
+if [ -d ~/Desktop ]; then
+  wget https://raw.github.com/team33/hfminstall/master/hfminstall
+  chmod +x hfminstall
+  sudo ./hfminstall
+  sudo apt-get clean
+  cp hfm.hfmx ~/.hfm.hfmx
+
+  cp DOUBLE*ME ~/Desktop/
+
+  gvfs-set-attribute ~/Desktop/HFM.desktop metadata::nautilus-icon-position 64,10
+  gvfs-set-attribute ~/Desktop/DOUBLE-CLICK\ ME metadata::nautilus-icon-position 424,177
+  sed -r -i 's/^(nautilus-icon-view-keep-aligned)=.*$/\1=false/' ~/.config/nautilus/desktop-metadata
+fi
 
 cd /usr/bin
 sudo wget https://raw.github.com/team33/fahinstall/$FAHINSTALL_BRANCH/fahinstall
@@ -86,19 +95,11 @@ cd -
 
 sudo sed -i 's/^exit 0/sudo -u horde langouste3 -l 8880 -D\nexit 0/' /etc/rc.local
 
-cp hfm.hfmx ~/.hfm.hfmx
-cp DOUBLE*ME ~/Desktop/
-
 mkdir ~/fah/
 cp /usr/share/langouste3/langouste-helper.sh ~/fah/
 
 sudo fahinstall -F -S -t /dev/shm -b $FAHINSTALL_BRANCH
 sudo apt-get clean
-
-gvfs-set-attribute ~/Desktop/HFM.desktop metadata::nautilus-icon-position 64,10
-gvfs-set-attribute ~/Desktop/DOUBLE-CLICK\ ME metadata::nautilus-icon-position 424,177
-sed -r -i 's/^(nautilus-icon-view-keep-aligned)=.*$/\1=false/' ~/.config/nautilus/desktop-metadata
-
 
 dconf write /desktop/unity/launcher/favorites "['nautilus-home.desktop','firefox.desktop','ubuntu-software-center.desktop','gnome-control-center.desktop','gnome-terminal.desktop']"
 cp %gconf.xml ~/.gconf/apps/gnome-terminal/profiles/Default/
