@@ -50,9 +50,11 @@ fi
 if [ -d /usr/share/gnome-background-properties ]; then
   sudo cp ubuntu-wallpapers.xml /usr/share/gnome-background-properties/ubuntu-wallpapers.xml
 fi
-cp /var/lib/gconf/debian.defaults/%gconf-tree.xml /dev/shm/%gconf-tree.xml-backup
-cat /var/lib/gconf/debian.defaults/%gconf-tree.xml  | awk '/entry name/ { W=$2 ; T=$3 ; print ; next } ; { if (W == "name=\"primary_color\"") { print "\t\t\t\t\t<stringvalue>#000000</stringvalue>" ; print "\t\t\t\t</entry>" ; print "\t\t\t\t<entry name=\"secondary_color\" " T " type=\"string\">" ; print "\t\t\t\t\t<stringvalue>#000000</stringvalue>" ; W="" ; next } ; if (W == "name=\"picture_options\"") { print "\t\t\t\t\t<stringvalue>centered</stringvalue>" ; W="" ; next } ; if (W == "name=\"picture_filename\"") { print "\t\t\t\t\t<stringvalue>/usr/share/backgrounds/h.png</stringvalue>" ; W="" ; next } ; print }' > /dev/shm/%gconf-tree.xml
-sudo dd bs=4k if=/dev/shm/%gconf-tree.xml of=/var/lib/gconf/debian.defaults/%gconf-tree.xml
+if [ -f /var/lib/gconf/debian.defaults/%gconf-tree.xml ]; then
+  cp /var/lib/gconf/debian.defaults/%gconf-tree.xml /dev/shm/%gconf-tree.xml-backup
+  cat /var/lib/gconf/debian.defaults/%gconf-tree.xml  | awk '/entry name/ { W=$2 ; T=$3 ; print ; next } ; { if (W == "name=\"primary_color\"") { print "\t\t\t\t\t<stringvalue>#000000</stringvalue>" ; print "\t\t\t\t</entry>" ; print "\t\t\t\t<entry name=\"secondary_color\" " T " type=\"string\">" ; print "\t\t\t\t\t<stringvalue>#000000</stringvalue>" ; W="" ; next } ; if (W == "name=\"picture_options\"") { print "\t\t\t\t\t<stringvalue>centered</stringvalue>" ; W="" ; next } ; if (W == "name=\"picture_filename\"") { print "\t\t\t\t\t<stringvalue>/usr/share/backgrounds/h.png</stringvalue>" ; W="" ; next } ; print }' > /dev/shm/%gconf-tree.xml
+  sudo dd bs=4k if=/dev/shm/%gconf-tree.xml of=/var/lib/gconf/debian.defaults/%gconf-tree.xml
+fi
 
 sudo cp hostname-persistent /usr/bin/
 sudo cp horde-hostname.conf /etc/init/
