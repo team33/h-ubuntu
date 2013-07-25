@@ -25,8 +25,12 @@ sudo dpkg -P fonts-opensymbol gir1.2-gst-plugins-base-0.10 gir1.2-gstreamer-0.10
 [ -f /etc/init/whoopsie.conf ] && sudo patch -p0 < whoopsie.diff
 
 # install [H] kernel
-sudo dpkg -P linux-image-generic-lts-quantal  linux-generic-lts-quantal 'linux-image-3.[56789].*' 'linux-image-extra-3.[56789].*'
-sudo dpkg -P linux-headers-generic-lts-quantal 'linux-headers-3.[56789].*'
+sudo dpkg -P	linux-image-generic-lts-quantal  linux-generic-lts-quantal \
+		linux-headers-generic-lts-quantal \
+		linux-image-generic linux-generic \
+		linux-headers-generic \
+		'linux-image-[0-9]*' 'linux-image-extra-[0-9]*' \
+		'linux-headers-[0-9]*'
 sudo dpkg -i linux-*.deb
 rm linux-*.deb
 
