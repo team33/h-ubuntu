@@ -5,4 +5,4 @@ wget -O linux-headers-3.2.0-47-generic_3.2.0-47.72~h3_amd64.deb 'https://dl.drop
 wget http://darkswarm.org/langouste3/langouste3-15.9.tar.gz
 wget http://i7z.googlecode.com/files/i7z-0.27.2.tar.gz
 wget https://turionpowercontrol.googlecode.com/files/tpc-0.44-rc2-src.tar.gz
-wget http://darkswarm.org/sm-bios/ocng-utils-4.3.tar.gz
+wget http://darkswarm.org/sm-bios/ocng-utils-4.4.tar.gz
