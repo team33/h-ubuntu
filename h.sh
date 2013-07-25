@@ -63,23 +63,31 @@ fi
 sudo cp hostname-persistent /usr/bin/
 sudo cp horde-hostname.conf /etc/init/
 sudo ln -s /lib/init/upstart-job /etc/init.d/horde-hostname
-tar -xzf langouste3-15.9.tar.gz
-cd langouste3-15.9
+
+mkdir langouste3
+tar -C langouste3 -xzf langouste3-*.tar.gz
+cd langouste3/*/
 make
 sudo make install
 cd -
-tar -xzf tpc-0.44-rc2-src.tar.gz
-cd tpc-0.44-rc2-src
+
+mkdir tpc
+tar -C tpc -xzf tpc-*-src.tar.gz
+cd tpc/*/
 make
 sudo make install
 cd -
-tar -xzf i7z-0.27.2.tar.gz
-cd i7z-0.27.2
+
+mkdir i7z
+tar -C i7z -xzf i7z-*.tar.gz
+cd i7z/*/
 make
 sudo make install
 cd -
-tar -xzf ocng-utils-4.3.tar.gz
-cd ocng-utils-4.3
+
+mkdir ocng-utils
+tar -C ocng-utils -xzf ocng-utils-*.tar.gz
+cd ocng-utils/*/
 make
 sudo make install
 cd -
