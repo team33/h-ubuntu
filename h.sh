@@ -30,7 +30,7 @@ sudo dpkg -P linux-headers-generic-lts-quantal 'linux-headers-3.[56789].*'
 sudo dpkg -i linux-*.deb
 rm linux-*.deb
 
-sudo apt-get -y install dconf-tools ncurses-dev g++
+sudo apt-get -y install ncurses-dev g++
 sudo apt-get clean
 if [ -d /usr/share/backgrounds ]; then
   sudo cp h.png /usr/share/backgrounds/
@@ -80,6 +80,13 @@ make
 sudo make install
 cd -
 
+if [ -x /usr/bin/gnome-terminal ]; then
+  sudo apt-get -y install dconf-tools
+  sudo apt-get clean
+  dconf write /desktop/unity/launcher/favorites "['nautilus-home.desktop','firefox.desktop','ubuntu-software-center.desktop','gnome-control-center.desktop','gnome-terminal.desktop']"
+  cp %gconf.xml ~/.gconf/apps/gnome-terminal/profiles/Default/
+fi
+
 if [ -d ~/Desktop ]; then
   wget https://raw.github.com/team33/hfminstall/master/hfminstall
   chmod +x hfminstall
@@ -106,9 +113,6 @@ cp /usr/share/langouste3/langouste-helper.sh ~/fah/
 
 sudo fahinstall -F -S -t /dev/shm -b $FAHINSTALL_BRANCH
 sudo apt-get clean
-
-dconf write /desktop/unity/launcher/favorites "['nautilus-home.desktop','firefox.desktop','ubuntu-software-center.desktop','gnome-control-center.desktop','gnome-terminal.desktop']"
-cp %gconf.xml ~/.gconf/apps/gnome-terminal/profiles/Default/
 
 echo
 echo Success!
