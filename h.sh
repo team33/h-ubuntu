@@ -64,13 +64,6 @@ sudo cp hostname-persistent /usr/bin/
 sudo cp horde-hostname.conf /etc/init/
 sudo ln -s /lib/init/upstart-job /etc/init.d/horde-hostname
 
-mkdir langouste3
-tar -C langouste3 -xzf langouste3-*.tar.gz
-cd langouste3/*/
-make
-sudo make install
-cd -
-
 mkdir tpc
 tar -C tpc -xzf tpc-*-src.tar.gz
 cd tpc/*/
@@ -117,11 +110,6 @@ cd /usr/bin
 sudo wget https://raw.github.com/team33/fahinstall/$FAHINSTALL_BRANCH/fahinstall
 sudo chmod +x fahinstall
 cd -
-
-sudo sed -i 's/^exit 0/sudo -u horde langouste3 -l 8880 -D\nexit 0/' /etc/rc.local
-
-mkdir ~/fah/
-cp /usr/share/langouste3/langouste-helper.sh ~/fah/
 
 sudo fahinstall -F -S -t /dev/shm -b $FAHINSTALL_BRANCH
 sudo apt-get clean
