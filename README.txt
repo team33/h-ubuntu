@@ -6,9 +6,9 @@ To prepare [H] Ubuntu image:
 3. Install Ubuntu 12.04.2 (while being connected to the Internet) with the
    following in mind:
 
-     Device size: 7876666368 bytes
+     Device size: 5368709120 bytes (10485760 sectors)
 
-     swap: 366*10^6 bytes (beginning) (sda1)
+     swap: 524*10^6 bytes (beginning) (sda1)
      ext4: rest (sda2)
      Denver / Mountain Time [sic!]
      user:password@host -- horde:team33ftw@horde-changeme
