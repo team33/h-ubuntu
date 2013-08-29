@@ -1,0 +1,40 @@
+#!/bin/bash -e
+trap "rm /.h-resize* ; echo Premature exit." ERR
+if [ -f /.h-resizepartition ]; then
+	BDEV=$(stat --printf %d /)
+	BDEVMAJ=$(($BDEV/256))
+	BDEVMIN=$(($BDEV%256))
+	DEVICE=/dev/$(awk "/ *$BDEVMAJ +0 / {print \$4 }" /proc/partitions)
+	PARTITION=/dev/$(awk "/ *$BDEVMAJ +$BDEVMIN / {print \$4 }" /proc/partitions)
+	DEVICESIZE=$(($(awk "/ *$BDEVMAJ +0 / {print \$3 }" /proc/partitions)*2))
+	FIRSTSECTOR=$(fdisk -l $DEVICE  | grep $PARTITION | awk '{ if ($2 == "*") print $3 ; else print $2 }')
+	LASTSECTOR=$(fdisk -l $DEVICE  | grep $PARTITION | awk '{ if ($2 == "*") print $4 ; else print $3 }')
+	for i in $(fdisk -l $DEVICE | grep "$DEVICE[0-9]" | awk '{ if ($2 == "*") print $3 ; else print $2 }') ; do
+		if [ $i -gt $LASTSECTOR ]; then	
+			echo ERROR: root partition is not the last partition
+			rm /.h-resizepartition
+			exit 1
+		fi
+	done
+	EXTRA=$(($DEVICESIZE-($LASTSECTOR+1)))
+	if [ $EXTRA -le 32768 ]; then
+		echo ERROR: only $EXTRA sectors left
+		rm /.h-resizepartition
+		exit 1
+	fi
+	NEWSIZE=$(($LASTSECTOR+1-$FIRSTSECTOR+$EXTRA-32768))
+	umask 077
+	dd if=$DEVICE count=1 of=/.mbr$(echo $DEVICE | tr / -)
+	echo "$FIRSTSECTOR $NEWSIZE 83 *" | sfdisk --no-reread -f -L -u S -N $BDEVMIN $DEVICE || true
+	mv /.h-resizepartition /.h-resizefilesystem
+	exit 0
+fi
+
+if [ -f /.h-resizefilesystem ]; then
+	BDEV=$(stat --printf %d /)
+	BDEVMAJ=$(($BDEV/256))
+	BDEVMIN=$(($BDEV%256))
+	PARTITION=/dev/$(awk "/ *$BDEVMAJ +$BDEVMIN / {print \$4 }" /proc/partitions)
+	resize2fs $PARTITION || true
+	rm /.h-resizefilesystem
+fi

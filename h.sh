@@ -85,6 +85,10 @@ make
 sudo make install
 cd -
 
+sudo cp resize-rootfs /usr/bin/
+sudo sed -i 's/^exit 0/resize-rootfs\nexit 0/' /etc/rc.local
+sudo touch /.h-resizepartition
+
 if [ -x /usr/bin/gnome-terminal ]; then
   sudo apt-get -y install dconf-tools
   sudo apt-get clean
