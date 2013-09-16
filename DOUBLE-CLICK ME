@@ -5,17 +5,23 @@ Welcome to [H] Ubuntu Folding Appliance [version 9] !
 
 To complete installation:
 
-1. Open a terminal:
+1. Configure the time zone:
+   (a) click on the Dash Icon (top-left), then
+   (b) type: 'time' and press Enter
+   (c) select your location/time zone on the map
+   (d) close the window -- use (X) icon in top-left corner of the window
+
+2. Open a terminal:
    (a) click on the Dash Icon (top-left), then
    (b) type: 'terminal' and press Enter
 
-2. In the terminal window, type: 'sudo fahinstall' (remove quotes)
+3. In the terminal window, type: 'sudo fahinstall' (remove quotes)
    and press Enter.
 
-3. After few moments, fahinstall will ask if you accept Folding@Home
+4. After few moments, fahinstall will ask if you accept Folding@Home
    EULA. If you accept the EULA, press Enter.
 
-4. Fahinstall will then download and run the client in -configonly mode
+5. Fahinstall will then download and run the client in -configonly mode
    which will ask you for your donor name, team number and passkey.
    Enter the values as requested.
 
@@ -25,7 +31,7 @@ To complete installation:
    Add'l passkey info is available at:
    http://folding.stanford.edu/English/FAQ-passkey
 
-5. You may leave remaining items at their defaults (Press Enter to
+6. You may leave remaining items at their defaults (Press Enter to
    accept each value). If you wish to use Langouste answer 'yes'
    to 'Use proxy' question.
 
@@ -36,10 +42,10 @@ To complete installation:
          and remove '-bigadv' parameter from 'Additional client
          parameters' list.
 
-6. Upon completing the installation, fahinstall will print your host
+7. Upon completing the installation, fahinstall will print your host
    name and IP address and will ask you to reboot the machine.
 
-7. Optionally, you may now change host name to your liking. To do so,
+8. Optionally, you may now change host name to your liking. To do so,
    type:
 
        sudo hostname-persistent <hostname>
@@ -52,12 +58,12 @@ To complete installation:
 
    and press Enter.
 
-8. Reboot the machine: type 'sudo reboot' (remove quotes) and press
+9. Reboot the machine: type 'sudo reboot' (remove quotes) and press
    Enter
 
-9. Once the machine reboots, log back in.
+10. Once the machine reboots, log back in.
 
-10. To start folding, open a terminal and type (press Enter after each
+11. To start folding, open a terminal and type (press Enter after each
     line):
 
        cd ~/fah/
