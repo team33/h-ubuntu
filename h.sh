@@ -107,6 +107,7 @@ sudo apt-get clean
 if [ -d ~/Desktop ]; then
   sudo hfminstall
   sudo apt-get clean
+  mkdir ~/.config/HFM/
   cp hfm.hfmx ~/.config/HFM/HFM.hfmx
 
   cp DOUBLE*ME ~/Desktop/
