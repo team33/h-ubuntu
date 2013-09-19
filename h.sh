@@ -105,7 +105,9 @@ sudo fahinstall -F -S -t /dev/shm -b $FAHINSTALL_BRANCH
 sudo apt-get clean
 
 if [ -d ~/Desktop ]; then
-  sudo hfminstall
+  wget https://raw.github.com/team33/hfminstall/master/hfminstall
+  chmod +x hfminstall
+  sudo ./hfminstall
   sudo apt-get clean
   mkdir ~/.config/HFM/
   cp hfm.hfmx ~/.config/HFM/HFM.hfmx
