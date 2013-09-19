@@ -96,14 +96,6 @@ if [ -x /usr/bin/gnome-terminal ]; then
   cp %gconf.xml ~/.gconf/apps/gnome-terminal/profiles/Default/
 fi
 
-cd /usr/bin
-sudo wget https://raw.github.com/team33/fahinstall/$FAHINSTALL_BRANCH/fahinstall
-sudo chmod +x fahinstall
-cd -
-
-sudo fahinstall -F -S -t /dev/shm -b $FAHINSTALL_BRANCH
-sudo apt-get clean
-
 if [ -d ~/Desktop ]; then
   wget https://raw.github.com/team33/hfminstall/master/hfminstall
   chmod +x hfminstall
@@ -118,6 +110,14 @@ if [ -d ~/Desktop ]; then
   gvfs-set-attribute ~/Desktop/DOUBLE-CLICK\ ME metadata::nautilus-icon-position 424,177
   sed -r -i 's/^(nautilus-icon-view-keep-aligned)=.*$/\1=false/' ~/.config/nautilus/desktop-metadata
 fi
+
+cd /usr/bin
+sudo wget https://raw.github.com/team33/fahinstall/$FAHINSTALL_BRANCH/fahinstall
+sudo chmod +x fahinstall
+cd -
+
+sudo fahinstall -F -S -t /dev/shm -b $FAHINSTALL_BRANCH
+sudo apt-get clean
 
 echo 9 | sudo dd of=/etc/h-ubuntu
 
