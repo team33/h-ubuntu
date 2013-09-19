@@ -97,7 +97,7 @@ if [ -x /usr/bin/gnome-terminal ]; then
 fi
 
 if [ -d ~/Desktop ]; then
-  wget https://raw.github.com/team33/hfminstall/master/hfminstall
+  wget https://raw.github.com/team33/hfminstall/$FAHINSTALL_BRANCH/hfminstall
   chmod +x hfminstall
   sudo ./hfminstall
   sudo apt-get clean
