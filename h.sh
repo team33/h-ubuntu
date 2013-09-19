@@ -5,7 +5,7 @@
 
 trap "echo Premature exit." ERR
 
-FAHINSTALL_BRANCH=released
+[ -z "$FAHINSTALL_BRANCH" ] && FAHINSTALL_BRANCH=released
 
 touch ~/.bash_history
 sudo swapoff -a
