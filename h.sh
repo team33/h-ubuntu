@@ -119,7 +119,7 @@ cd -
 sudo fahinstall -F -S -t /dev/shm -b $FAHINSTALL_BRANCH
 sudo apt-get clean
 
-echo 9 | sudo dd of=/etc/h-ubuntu
+echo 9-pre | sudo dd of=/etc/h-ubuntu
 
 echo
 echo Success!
