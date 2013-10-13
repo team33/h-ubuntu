@@ -3,6 +3,24 @@
 # system stuff first, user stuff next...
 # less likely to be modified items first, more likely to be modified items next...
 
+#
+# execute command with external shell; retry if unsuccessful (up to 5 times total)
+#
+try()
+{
+	local I=5
+	
+	while true ; do
+		$SHELL -c "$1" && return 0
+		I=$(($I-1))
+		[ $I = 0 ] && break
+		echo ==== WARNING: "$1" failed, retrying in 5 seconds...
+		sleep 5
+		echo ==== Retrying now, this may take a while...
+	done
+	return 1
+}
+
 trap "echo Premature exit." ERR
 
 [ -z "$FAHINSTALL_BRANCH" ] && FAHINSTALL_BRANCH=released
@@ -10,7 +28,7 @@ trap "echo Premature exit." ERR
 touch ~/.bash_history
 sudo swapoff -a
 
-sudo apt-get clean
+try "sudo apt-get clean"
 sudo mkdir /dev/shm/archives/
 sudo mount --bind /dev/shm/archives/ /var/cache/apt/archives/
 sudo mkdir /var/cache/apt/archives/partial
@@ -34,8 +52,8 @@ sudo dpkg -P	linux-image-generic-lts-quantal  linux-generic-lts-quantal \
 sudo dpkg -i linux-*.deb
 rm linux-*.deb
 
-sudo apt-get -y install ncurses-dev g++
-sudo apt-get clean
+try "sudo apt-get -y install ncurses-dev g++"
+try "sudo apt-get clean"
 if [ -d /usr/share/backgrounds ]; then
   sudo cp h.png /usr/share/backgrounds/
   sudo touch -d '2013-06-03 06:05' /usr/share/backgrounds/h.png
@@ -90,8 +108,8 @@ sudo sed -i 's/^exit 0/resize-rootfs\nexit 0/' /etc/rc.local
 sudo touch /.h-resizepartition
 
 if [ -x /usr/bin/gnome-terminal ]; then
-  sudo apt-get -y install dconf-tools
-  sudo apt-get clean
+  try "sudo apt-get -y install dconf-tools"
+  try "sudo apt-get clean"
   dconf write /desktop/unity/launcher/favorites "['nautilus-home.desktop','firefox.desktop','ubuntu-software-center.desktop','gnome-control-center.desktop','gnome-terminal.desktop']"
   cp %gconf.xml ~/.gconf/apps/gnome-terminal/profiles/Default/
 fi
@@ -100,7 +118,7 @@ if [ -d ~/Desktop ]; then
   wget https://raw.github.com/team33/hfminstall/$FAHINSTALL_BRANCH/hfminstall
   chmod +x hfminstall
   sudo ./hfminstall
-  sudo apt-get clean
+  try "sudo apt-get clean"
   mkdir ~/.config/HFM/
   cp hfm.hfmx ~/.config/HFM/HFM.hfmx
 
@@ -117,7 +135,7 @@ sudo chmod +x fahinstall
 cd -
 
 sudo fahinstall -F -S -t /dev/shm -b $FAHINSTALL_BRANCH
-sudo apt-get clean
+try "sudo apt-get clean"
 
 echo 9-pre | sudo dd of=/etc/h-ubuntu
 
