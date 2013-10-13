@@ -4,4 +4,4 @@ wget -O linux-headers-3.2.0-47_3.2.0-47.72~h3_all.deb 'https://dl.dropboxusercon
 wget -O linux-headers-3.2.0-47-generic_3.2.0-47.72~h3_amd64.deb 'https://dl.dropboxusercontent.com/s/avq5lvged5emkzt/linux-headers-3.2.0-47-generic_3.2.0-47.72%7Eh3_amd64.deb?token_hash=AAHoNcoBeNHWWKU3wJUCALIWOPa0YRE_dEyeoT2x3_gXMA&dl=1'
 wget http://i7z.googlecode.com/files/i7z-0.27.2.tar.gz
 wget https://turionpowercontrol.googlecode.com/files/tpc-0.44-rc2-src.tar.gz
-wget http://darkswarm.org/sm-bios/ocng-utils-4.4.tar.gz
+wget http://darkswarm.org/sm-bios/ocng-utils-4.5.tar.gz
