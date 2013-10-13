@@ -26,6 +26,7 @@ trap "echo Premature exit." ERR
 [ -z "$FAHINSTALL_BRANCH" ] && FAHINSTALL_BRANCH=released
 
 touch ~/.bash_history
+touch ~/.lesshst
 sudo swapoff -a
 
 try "sudo apt-get clean"
