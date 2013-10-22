@@ -1,3 +1,4 @@
+Licensed under GPLv2. See COPYING.txt for more information.
 
 To prepare [H] Ubuntu image:
 
