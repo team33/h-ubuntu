@@ -53,6 +53,10 @@ sudo dpkg -P	linux-image-generic-lts-quantal  linux-generic-lts-quantal \
 sudo dpkg -i linux-*.deb
 rm linux-*.deb
 
+sudo cp resize-rootfs /usr/bin/
+sudo sed -i 's/^exit 0/resize-rootfs\nexit 0/' /etc/rc.local
+sudo touch /.h-resizepartition
+
 try "sudo apt-get -y install ncurses-dev g++"
 try "sudo apt-get clean"
 if [ -d /usr/share/backgrounds ]; then
@@ -104,9 +108,6 @@ make
 sudo make install
 cd -
 
-sudo cp resize-rootfs /usr/bin/
-sudo sed -i 's/^exit 0/resize-rootfs\nexit 0/' /etc/rc.local
-sudo touch /.h-resizepartition
 
 if [ -x /usr/bin/gnome-terminal ]; then
   try "sudo apt-get -y install dconf-tools"
