@@ -57,6 +57,10 @@ sudo cp resize-rootfs /usr/bin/
 sudo sed -i 's/^exit 0/resize-rootfs\nexit 0/' /etc/rc.local
 sudo touch /.h-resizepartition
 
+sudo cp hostname-persistent /usr/bin/
+sudo cp horde-hostname.conf /etc/init/
+sudo ln -s /lib/init/upstart-job /etc/init.d/horde-hostname
+
 try "sudo apt-get -y install ncurses-dev g++"
 try "sudo apt-get clean"
 if [ -d /usr/share/backgrounds ]; then
@@ -82,10 +86,6 @@ if [ -f /var/lib/gconf/debian.defaults/%gconf-tree.xml ]; then
   cat /var/lib/gconf/debian.defaults/%gconf-tree.xml  | awk '/entry name/ { W=$2 ; T=$3 ; print ; next } ; { if (W == "name=\"primary_color\"") { print "\t\t\t\t\t<stringvalue>#000000</stringvalue>" ; print "\t\t\t\t</entry>" ; print "\t\t\t\t<entry name=\"secondary_color\" " T " type=\"string\">" ; print "\t\t\t\t\t<stringvalue>#000000</stringvalue>" ; W="" ; next } ; if (W == "name=\"picture_options\"") { print "\t\t\t\t\t<stringvalue>centered</stringvalue>" ; W="" ; next } ; if (W == "name=\"picture_filename\"") { print "\t\t\t\t\t<stringvalue>/usr/share/backgrounds/h.png</stringvalue>" ; W="" ; next } ; print }' > /dev/shm/%gconf-tree.xml
   sudo dd bs=4k if=/dev/shm/%gconf-tree.xml of=/var/lib/gconf/debian.defaults/%gconf-tree.xml
 fi
-
-sudo cp hostname-persistent /usr/bin/
-sudo cp horde-hostname.conf /etc/init/
-sudo ln -s /lib/init/upstart-job /etc/init.d/horde-hostname
 
 mkdir tpc
 tar -C tpc -xzf tpc-*-src.tar.gz
