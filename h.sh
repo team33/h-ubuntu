@@ -118,7 +118,6 @@ make
 sudo make install
 cd -
 
-
 if [ -x /usr/bin/gnome-terminal ]; then
   try "sudo apt-get -y install dconf-tools"
   try "sudo apt-get clean"
