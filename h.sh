@@ -56,6 +56,10 @@ rm linux-*.deb
 sudo cp resize-rootfs /usr/bin/
 sudo touch /.h-resizepartition
 
+sudo find /etc/ssl/certs -maxdepth 1 -not -type d \( -lname ssl-cert-snakeoil.pem -or -name ssl-cert-snakeoil.pem \) -exec rm {} \;
+sudo rm /etc/ssl/private/ssl-cert-snakeoil.key
+sudo touch /.h-reconfigure-ssl-cert
+
 sudo touch /.h-configure-openssh
 
 sudo cp hostname-persistent /usr/bin/
