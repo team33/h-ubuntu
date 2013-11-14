@@ -27,6 +27,7 @@ if [ -f /.h-resizepartition ]; then
 	dd if=$DEVICE count=1 of=/.mbr$(echo $DEVICE | tr / -)
 	echo "$FIRSTSECTOR $NEWSIZE 83 *" | sfdisk --no-reread -f -L -u S -N $BDEVMIN $DEVICE || true
 	mv /.h-resizepartition /.h-resizefilesystem
+	sync
 	exit 0
 fi
 
@@ -37,4 +38,5 @@ if [ -f /.h-resizefilesystem ]; then
 	PARTITION=/dev/$(awk "/ *$BDEVMAJ +$BDEVMIN / {print \$4 }" /proc/partitions)
 	resize2fs $PARTITION || true
 	rm /.h-resizefilesystem
+	sync
 fi
