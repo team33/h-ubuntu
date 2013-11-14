@@ -54,7 +54,6 @@ sudo dpkg -i linux-*.deb
 rm linux-*.deb
 
 sudo cp resize-rootfs /usr/bin/
-sudo sed -i 's/^exit 0/resize-rootfs\nexit 0/' /etc/rc.local
 sudo touch /.h-resizepartition
 
 sudo cp hostname-persistent /usr/bin/
