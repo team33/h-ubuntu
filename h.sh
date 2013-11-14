@@ -58,8 +58,8 @@ sudo sed -i 's/^exit 0/resize-rootfs\nexit 0/' /etc/rc.local
 sudo touch /.h-resizepartition
 
 sudo cp hostname-persistent /usr/bin/
-sudo cp horde-hostname.conf /etc/init/
-sudo ln -s /lib/init/upstart-job /etc/init.d/horde-hostname
+sudo cp horde-startup.conf /etc/init/
+sudo ln -s /lib/init/upstart-job /etc/init.d/horde-startup
 
 try "sudo apt-get -y install ncurses-dev g++"
 try "sudo apt-get clean"
