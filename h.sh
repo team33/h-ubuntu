@@ -68,6 +68,7 @@ sudo touch /.h-reconfigure-ssl-cert
 sudo touch /.h-configure-openssh
 
 sudo cp hostname-persistent /usr/bin/
+
 sudo cp horde-startup.conf /etc/init/
 sudo ln -s /lib/init/upstart-job /etc/init.d/horde-startup
 
