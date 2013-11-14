@@ -27,6 +27,7 @@ trap "echo Premature exit." ERR
 
 touch ~/.bash_history
 touch ~/.lesshst
+export SWAPDEV=$(tail -n +2 < /proc/swaps | head -n 1 | cut -f 1 -d  \ )
 sudo swapoff -a
 
 try "sudo apt-get clean"
@@ -55,6 +56,10 @@ rm linux-*.deb
 
 sudo cp resize-rootfs /usr/bin/
 sudo touch /.h-resizepartition
+
+sudo cp update-uuids /usr/bin/
+sudo -E update-uuids 66666666-6666-6666-6666-666666666666 99999999-9999-9999-9999-999999999999
+sudo touch /.h-update-uuids
 
 sudo find /etc/ssl/certs -maxdepth 1 -not -type d \( -lname ssl-cert-snakeoil.pem -or -name ssl-cert-snakeoil.pem \) -exec rm {} \;
 sudo rm /etc/ssl/private/ssl-cert-snakeoil.key

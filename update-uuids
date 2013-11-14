@@ -1,0 +1,30 @@
+#!/bin/bash -e
+NEWROOTUUID=
+NEWSWAPUUID=
+AUTO=
+if [ -n "$1" -a -n "$2" ]; then
+	trap "echo Premature exit." ERR
+	NEWROOTUUID=$1
+	NEWSWAPUUID=$2
+else
+	[ -f /.h-update-uuids ] || exit 0
+	trap "rm /.h-update-uuids ; echo Premature exit." ERR
+	NEWROOTUUID=$(uuidgen)
+	NEWSWAPUUID=$(uuidgen)
+	SWAPDEV=
+	AUTO=1
+fi
+BDEV=$(stat --printf %d /)
+BDEVMAJ=$(($BDEV/256))
+BDEVMIN=$(($BDEV%256))
+ROOTDEV=/dev/$(awk "/ *$BDEVMAJ +$BDEVMIN / {print \$4 }" /proc/partitions)
+ROOTUUID=$(dumpe2fs -h $ROOTDEV | awk '/Filesystem UUID:/ { print $3 }')
+[ -z "$SWAPDEV" ] && SWAPDEV=$(tail -n +2 < /proc/swaps | head -n 1 | cut -f 1 -d  \ )
+SWAPUUID=$(swaplabel $SWAPDEV | awk '/UUID:/ { print $2 }')
+
+sed -i "s/$ROOTUUID/$NEWROOTUUID/;s/$SWAPUUID/$NEWSWAPUUID/" /etc/fstab
+tune2fs -U $NEWROOTUUID $ROOTDEV
+swaplabel -U $NEWSWAPUUID $SWAPDEV
+update-grub
+[ -n "$AUTO" ] && rm /.h-update-uuids
+sync
