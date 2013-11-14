@@ -149,6 +149,23 @@ cd -
 sudo fahinstall -F -S -t /dev/shm -b $FAHINSTALL_BRANCH
 try "sudo apt-get clean"
 
+rm -f ~/.xsession-errors
+sudo rm -f /etc/udev/rules.d/70-persistent-net.rules
+sudo rm -f /var/log/auth.log
+sudo rm -f /var/log/boot.log
+sudo rm -f /var/log/ConsoleKit/history
+sudo rm -f /var/log/cups/*
+sudo rm -f /var/log/dmesg*
+sudo rm -f /var/log/kern.log
+sudo rm -f /var/log/lightdm/*
+sudo rm -f /var/log/pm-powersave.log
+sudo rm -f /var/log/samba/log.smbd
+sudo rm -f /var/log/samba/log.nmbd
+sudo rm -f /var/log/syslog
+sudo rm -f /var/log/udev
+sudo rm -f /var/log/upstart/*
+sudo rm -f /var/log/Xorg.0.log*
+
 echo 9-pre | sudo dd of=/etc/h-ubuntu
 
 echo
