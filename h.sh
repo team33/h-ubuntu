@@ -166,7 +166,7 @@ sudo rm -f /var/log/udev
 sudo rm -f /var/log/upstart/*
 sudo rm -f /var/log/Xorg.0.log*
 
-echo 9-$(date +%Y%m%d) | sudo dd of=/etc/h-ubuntu-version
+echo 10-$(date +%Y%m%d) | sudo dd of=/etc/h-ubuntu-version
 
 echo
 echo Success!
