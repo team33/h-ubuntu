@@ -4,12 +4,12 @@ if [ -f /.h-resizepartition ]; then
 	BDEV=$(stat --printf %d /)
 	BDEVMAJ=$(($BDEV/256))
 	BDEVMIN=$(($BDEV%256))
-	DEVICE=/dev/$(awk "/ *$BDEVMAJ +0 / {print \$4 }" /proc/partitions)
-	PARTITION=/dev/$(awk "/ *$BDEVMAJ +$BDEVMIN / {print \$4 }" /proc/partitions)
+	DEVICEPATH=/dev/$(awk "/ *$BDEVMAJ +0 / {print \$4 }" /proc/partitions)
+	PARTITIONPATH=/dev/$(awk "/ *$BDEVMAJ +$BDEVMIN / {print \$4 }" /proc/partitions)
 	DEVICESIZE=$(($(awk "/ *$BDEVMAJ +0 / {print \$3 }" /proc/partitions)*2))
-	FIRSTSECTOR=$(fdisk -l $DEVICE  | grep $PARTITION | awk '{ if ($2 == "*") print $3 ; else print $2 }')
-	LASTSECTOR=$(fdisk -l $DEVICE  | grep $PARTITION | awk '{ if ($2 == "*") print $4 ; else print $3 }')
-	for i in $(fdisk -l $DEVICE | grep "$DEVICE[0-9]" | awk '{ if ($2 == "*") print $3 ; else print $2 }') ; do
+	FIRSTSECTOR=$(fdisk -l $DEVICEPATH  | grep $PARTITIONPATH | awk '{ if ($2 == "*") print $3 ; else print $2 }')
+	LASTSECTOR=$(fdisk -l $DEVICEPATH  | grep $PARTITIONPATH | awk '{ if ($2 == "*") print $4 ; else print $3 }')
+	for i in $(fdisk -l $DEVICEPATH | grep "$DEVICEPATH[0-9]" | awk '{ if ($2 == "*") print $3 ; else print $2 }') ; do
 		if [ $i -gt $LASTSECTOR ]; then	
 			echo ERROR: root partition is not the last partition
 			rm /.h-resizepartition
@@ -24,8 +24,8 @@ if [ -f /.h-resizepartition ]; then
 	fi
 	NEWSIZE=$(($LASTSECTOR+1-$FIRSTSECTOR+$EXTRA-32768))
 	umask 077
-	dd if=$DEVICE count=1 of=/.mbr$(echo $DEVICE | tr / -)
-	echo "$FIRSTSECTOR $NEWSIZE 83 *" | sfdisk --no-reread -f -L -u S -N $BDEVMIN $DEVICE || true
+	dd if=$DEVICEPATH count=1 of=/.mbr$(echo $DEVICEPATH | tr / -)
+	echo "$FIRSTSECTOR $NEWSIZE 83 *" | sfdisk --no-reread -f -L -u S -N $BDEVMIN $DEVICEPATH || true
 	mv /.h-resizepartition /.h-resizefilesystem
 	sync
 	exit 0
@@ -35,8 +35,8 @@ if [ -f /.h-resizefilesystem ]; then
 	BDEV=$(stat --printf %d /)
 	BDEVMAJ=$(($BDEV/256))
 	BDEVMIN=$(($BDEV%256))
-	PARTITION=/dev/$(awk "/ *$BDEVMAJ +$BDEVMIN / {print \$4 }" /proc/partitions)
-	resize2fs $PARTITION || true
+	PARTITIONPATH=/dev/$(awk "/ *$BDEVMAJ +$BDEVMIN / {print \$4 }" /proc/partitions)
+	resize2fs $PARTITIONPATH || true
 	rm /.h-resizefilesystem
 	sync
 fi
