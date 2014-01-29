@@ -4,9 +4,11 @@ if [ -f /.h-resizepartition ]; then
 	BDEV=$(stat --printf %d /)
 	BDEVMAJ=$(($BDEV/256))
 	BDEVMIN=$(($BDEV%256))
-	DEVICEPATH=/dev/$(awk "/ *$BDEVMAJ +0 / {print \$4 }" /proc/partitions)
-	PARTITIONPATH=/dev/$(awk "/ *$BDEVMAJ +$BDEVMIN / {print \$4 }" /proc/partitions)
-	DEVICESIZE=$(($(awk "/ *$BDEVMAJ +0 / {print \$3 }" /proc/partitions)*2))
+	PARTITION=$(awk "/ *$BDEVMAJ +$BDEVMIN / {print \$4 }" /proc/partitions)
+	DEVICE=$(echo $PARTITION | sed 's/[0-9]*$//')
+	PARTITIONPATH=/dev/$PARTITION
+	DEVICEPATH=/dev/$DEVICE
+	DEVICESIZE=$(($(awk "/ $DEVICE\$/ {print \$3 }" /proc/partitions)*2))
 	FIRSTSECTOR=$(fdisk -l $DEVICEPATH  | grep $PARTITIONPATH | awk '{ if ($2 == "*") print $3 ; else print $2 }')
 	LASTSECTOR=$(fdisk -l $DEVICEPATH  | grep $PARTITIONPATH | awk '{ if ($2 == "*") print $4 ; else print $3 }')
 	for i in $(fdisk -l $DEVICEPATH | grep "$DEVICEPATH[0-9]" | awk '{ if ($2 == "*") print $3 ; else print $2 }') ; do
