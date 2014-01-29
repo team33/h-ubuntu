@@ -5,6 +5,7 @@ if [ -f /.h-resizepartition ]; then
 	BDEVMAJ=$(($BDEV/256))
 	BDEVMIN=$(($BDEV%256))
 	PARTITION=$(awk "/ *$BDEVMAJ +$BDEVMIN / {print \$4 }" /proc/partitions)
+	PARTITIONNUMBER=$(echo $PARTITION | sed -r 's/(.*[^0-9]+)([0-9]*)$/\2/')
 	DEVICE=$(echo $PARTITION | sed 's/[0-9]*$//')
 	PARTITIONPATH=/dev/$PARTITION
 	DEVICEPATH=/dev/$DEVICE
@@ -27,7 +28,7 @@ if [ -f /.h-resizepartition ]; then
 	NEWSIZE=$(($LASTSECTOR+1-$FIRSTSECTOR+$EXTRA-32768))
 	umask 077
 	dd if=$DEVICEPATH count=1 of=/.mbr$(echo $DEVICEPATH | tr / -)
-	echo "$FIRSTSECTOR $NEWSIZE 83 *" | sfdisk --no-reread -f -L -u S -N $BDEVMIN $DEVICEPATH || true
+	echo "$FIRSTSECTOR $NEWSIZE 83 *" | sfdisk --no-reread -f -L -u S -N $PARTITIONNUMBER $DEVICEPATH || true
 	mv /.h-resizepartition /.h-resizefilesystem
 	sync
 	exit 0
